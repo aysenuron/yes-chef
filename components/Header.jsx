@@ -1,7 +1,7 @@
 export default function Header() {
     return (
         <header>
-            <span>YES, CHEF!</span>
+            <span>YESS, CHEF!</span>
         </header>
     )
 };

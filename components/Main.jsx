@@ -2,38 +2,51 @@ import React from "react";
 
 export default function Main() {
 
-    let ingredients = [];
+    const [ingredients, setIngredients] = React.useState([]);
 
 
-    const ingredientLi = ingredients.map(ingredient => {
-        <li key={ingredient}>
+    const ingredientsListItems = ingredients.map(ingredient => (
+        <li key={Math.random()}>
             {ingredient}
         </li>
-    });
+    ));
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget)
-        const newIngredient = formData.get("ingredient")
-        ingredients.push(newIngredient);
-        console.log(newIngredient);
+    function addIngredient(formData) {
+        const newIngredient = formData.get("ingredient");      
+        setIngredients(prevIngredients => [...prevIngredients, newIngredient]);
     };
 
     return (
         <main>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="text"
-                    placeholder="e.g. oregano"
-                    aria-label="Add ingredient"
-                    name="ingredient"
-                    required
-                />
-                <button>add ingredient</button>
+            <form action={addIngredient}>
+                <label htmlFor="ingredient">Add in at least 2 ingredients to generate a recipe.</label>
+                <div>
+                    <input 
+                        id="ingredient"
+                        type="text"
+                        placeholder="e.g. zucchini"
+                        aria-label="Add ingredient"
+                        name="ingredient"
+                        required
+                    />
+                    <button>Add ingredient</button>
+                </div>
             </form>
-            <ul>
-                {ingredientLi}
-            </ul>
+            {ingredients.length > 0 &&
+                <section>
+                    <h2>Ingredients on hand:</h2>
+                    <ul className="ingredients-list" aria-live="polite">{ingredientsListItems}</ul>
+                    {ingredients.length > 1 && 
+                        <div className="get-recipe-container">
+                            <div>
+                                <h3>Ready for a recipe?</h3>
+                                <p>Generate a recipe from your list of ingredients.</p>
+                            </div>
+                            <button>Get a recipe</button>
+                        </div>
+                    }
+                </section>
+            }
         </main>
     )
 }

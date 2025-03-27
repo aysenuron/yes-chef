@@ -24,26 +24,37 @@ header span {
 
 main {
   padding: 32px 32px 12px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+form div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
-form > input {
+form input {
   border-radius: 6px;
   border: 1px solid #D1D5DB;
   padding: 8px 12px;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
   flex-grow: 1;
   min-width: 150px;
-  max-width: 400px;
+  max-width: 320px;
 }
 
-form > button {
+form button {
   font-family: Inter, sans-serif;
   border-radius: 6px;
   border: none;
@@ -53,13 +64,71 @@ form > button {
   font-size: 0.875rem;
 }
 
-form > button::before {
+form button:hover {
+  cursor: pointer;
+}
+
+form button::before {
   content: "+";
   margin-right: 4px;
 }
 
+.ingredients-list {
+  list-style-position: inside;
+  padding-left: 0;
+  margin-bottom: 48px;
+}
+
+.ingredients-list li {
+  color: #475467;
+  line-height: 28px;
+}
+
+.ingredients-list li::marker {
+  color: blue;
+}
+
+.get-recipe-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  background: rgb(248, 248, 255);
+  padding: 12px 28px;
+}
+
+.get-recipe-container h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+p, label {
+  color: #6B7280;
+  font-size: 0.875rem;
+  line-height: 20px;
+}
+
+.get-recipe-container button {
+  border: none;
+  border-radius: 6px;
+  background: blue;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  color: #FAFAF8;
+  padding: 9px 17px;
+  font-family: Inter, sans-serif;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
 @media (min-width: 768px) {
-  form {
+  form div {
+    flex-direction: row;
+  }
+
+  .get-recipe-container {
     flex-direction: row;
   }
 }
