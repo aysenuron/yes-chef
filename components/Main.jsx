@@ -1,52 +1,47 @@
 import React from "react";
+import Form from "./Form";
+import IngredientsList from "./IngredientsList";
+import ClaudeRecipe from "./ClaudeRecipe";
 
 export default function Main() {
-
     const [ingredients, setIngredients] = React.useState([]);
 
-
-    const ingredientsListItems = ingredients.map(ingredient => (
-        <li key={Math.random()}>
-            {ingredient}
-        </li>
-    ));
+    const [recipeShown, setRecipeShown] = React.useState(false);
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient");      
         setIngredients(prevIngredients => [...prevIngredients, newIngredient]);
-    };
+    }
+
+    async function getRecipe() {
+        try {
+            const response = await fetch('/.netlify/functions/getRecipe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ingredientsArr: ingredients })
+            });
+            const data = await response.json();
+            setRecipe(data.recipe);
+            setRecipeShown(true);
+        } catch (error) {
+            console.error("Error fetching recipe:", error);
+        }
+    }
+
+    function displayRecipe() {
+        const recipe = getRecipe();
+        console.log(recipe);
+        setRecipeShown(prevRecipe => !prevRecipe);
+    }
 
     return (
         <main>
-            <form action={addIngredient}>
-                <label htmlFor="ingredient">Add in at least 2 ingredients to generate a recipe.</label>
-                <div>
-                    <input 
-                        id="ingredient"
-                        type="text"
-                        placeholder="e.g. zucchini"
-                        aria-label="Add ingredient"
-                        name="ingredient"
-                        required
-                    />
-                    <button>Add ingredient</button>
-                </div>
-            </form>
-            {ingredients.length > 0 &&
-                <section>
-                    <h2>Ingredients on hand:</h2>
-                    <ul className="ingredients-list" aria-live="polite">{ingredientsListItems}</ul>
-                    {ingredients.length > 1 && 
-                        <div className="get-recipe-container">
-                            <div>
-                                <h3>Ready for a recipe?</h3>
-                                <p>Generate a recipe from your list of ingredients.</p>
-                            </div>
-                            <button>Get a recipe</button>
-                        </div>
-                    }
-                </section>
-            }
+            <Form handleAction={addIngredient} />
+            {ingredients.length > 0 && <IngredientsList
+            ingredients={ingredients}
+            displayRecipe={displayRecipe}
+            />}
+            {recipeShown ? <ClaudeRecipe />: null}
         </main>
     )
 }
