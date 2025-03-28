@@ -20,7 +20,6 @@ export default function Main() {
                 body: JSON.stringify({ ingredientsArr: ingredients })
             });
             const data = await response.json();
-            console.log(data.recipe);  // Log the response data here
             setRecipe(data.recipe);   // Set the recipe in the state
         } catch (error) {
             console.error("Error fetching recipe:", error);
