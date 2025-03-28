@@ -5,8 +5,7 @@ import ClaudeRecipe from "./ClaudeRecipe";
 
 export default function Main() {
     const [ingredients, setIngredients] = React.useState([]);
-
-    const [recipeShown, setRecipeShown] = React.useState(false);
+    const [recipe, setRecipe] = React.useState(null);
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient");      
@@ -23,7 +22,6 @@ export default function Main() {
             const data = await response.json();
             console.log(data.recipe);  // Log the response data here
             setRecipe(data.recipe);   // Set the recipe in the state
-            setRecipeShown(true);      // Display the recipe component
         } catch (error) {
             console.error("Error fetching recipe:", error);
         }
@@ -39,7 +37,7 @@ export default function Main() {
             ingredients={ingredients}
             displayRecipe={displayRecipe}
             />}
-            {recipeShown ? <ClaudeRecipe recipe={recipe} />: null}
+            {recipe ? <ClaudeRecipe recipe={recipe} />: null}
         </main>
     )
 }
