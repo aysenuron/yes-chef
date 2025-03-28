@@ -21,6 +21,7 @@ export default function Main() {
             });
             const data = await response.json();
             setRecipe(data.recipe);   // Set the recipe in the state
+            console.log(data.recipe);
         } catch (error) {
             console.error("Error fetching recipe:", error);
         }
