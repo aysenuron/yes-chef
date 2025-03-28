@@ -21,17 +21,15 @@ export default function Main() {
                 body: JSON.stringify({ ingredientsArr: ingredients })
             });
             const data = await response.json();
-            setRecipe(data.recipe);
-            setRecipeShown(true);
+            console.log(data.recipe);  // Log the response data here
+            setRecipe(data.recipe);   // Set the recipe in the state
+            setRecipeShown(true);      // Display the recipe component
         } catch (error) {
             console.error("Error fetching recipe:", error);
         }
     }
-
     function displayRecipe() {
-        const recipe = getRecipe();
-        console.log(recipe);
-        setRecipeShown(prevRecipe => !prevRecipe);
+        getRecipe();  
     }
 
     return (
@@ -41,7 +39,7 @@ export default function Main() {
             ingredients={ingredients}
             displayRecipe={displayRecipe}
             />}
-            {recipeShown ? <ClaudeRecipe />: null}
+            {recipeShown ? <ClaudeRecipe recipe={recipe} />: null}
         </main>
     )
 }
