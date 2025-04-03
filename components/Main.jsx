@@ -41,7 +41,7 @@ export default function Main() {
 
     return (
         <main>
-            {recipe && <Confetti numberOfPieces={1000} recycle={false} />}
+            {recipe && <Confetti confettiSource={{x: 0, y: 150, w: canvas.width, h:0}} numberOfPieces={1000} recycle={false} />}
             <Form handleAction={addIngredient} />
             {ingredients.length > 0 && <IngredientsList
             ref={recipeSection}
