@@ -42,7 +42,7 @@ export default function Main() {
     return (
         <main>
             {recipe && <Confetti 
-            confettiSource={{x: 0, y: 150, w: window.innerWidthwidth, h:0}}
+            confettiSource={{x: 0, y: 150, w: window.innerWidth, h:0}}
             numberOfPieces={1000} 
             recycle={false} 
             />}
