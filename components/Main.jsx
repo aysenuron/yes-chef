@@ -7,6 +7,7 @@ export default function Main() {
     const [ingredients, setIngredients] = React.useState([]);
     const [recipe, setRecipe] = React.useState(null);
     const recipeSection = React.useRef(null);
+    const [loading, setLoading] = React.useState(false);
     
     React.useEffect(() => {
         recipe &&
@@ -20,6 +21,7 @@ export default function Main() {
     }
 
     async function getRecipe() {
+        setLoading(true);
         try {
             const response = await fetch('/.netlify/functions/getRecipe', {
                 method: 'POST',
@@ -31,6 +33,8 @@ export default function Main() {
             console.log(data.recipe);
         } catch (error) {
             console.error("Error fetching recipe:", error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -45,6 +49,7 @@ export default function Main() {
             ref={recipeSection}
             ingredients={ingredients}
             displayRecipe={displayRecipe}
+            loading={loading}
             />}
             {recipe ? <ClaudeRecipe recipe={recipe} />: null}
         </main>
