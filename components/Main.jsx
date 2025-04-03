@@ -2,7 +2,6 @@ import React from "react";
 import Form from "./Form";
 import IngredientsList from "./IngredientsList";
 import ClaudeRecipe from "./ClaudeRecipe";
-import Confetti from 'react-confetti'
 
 export default function Main() {
     const [ingredients, setIngredients] = React.useState([]);
@@ -41,12 +40,6 @@ export default function Main() {
 
     return (
         <main>
-            {recipe && <Confetti 
-            width={window.innerWidth} 
-            height={window.innerHeight} 
-            numberOfPieces={2000} 
-            recycle={false} 
-            />}
             <Form handleAction={addIngredient} />
             {ingredients.length > 0 && <IngredientsList
             ref={recipeSection}
