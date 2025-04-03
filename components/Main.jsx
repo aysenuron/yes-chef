@@ -42,6 +42,8 @@ export default function Main() {
     return (
         <main>
             {recipe && <Confetti 
+            width={window.innerWidth} 
+            height={window.innerHeight} 
             numberOfPieces={2000} 
             recycle={false} 
             />}
