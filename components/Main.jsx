@@ -2,6 +2,7 @@ import React from "react";
 import Form from "./Form";
 import IngredientsList from "./IngredientsList";
 import ClaudeRecipe from "./ClaudeRecipe";
+import Confetti from 'react-confetti'
 
 export default function Main() {
     const [ingredients, setIngredients] = React.useState([]);
@@ -33,12 +34,14 @@ export default function Main() {
             console.error("Error fetching recipe:", error);
         }
     }
+
     function displayRecipe() {
         getRecipe();  
     }
 
     return (
         <main>
+            {recipe && <Confetti recycle={false} />}
             <Form handleAction={addIngredient} />
             {ingredients.length > 0 && <IngredientsList
             ref={recipeSection}
