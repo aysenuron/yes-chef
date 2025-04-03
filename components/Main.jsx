@@ -6,6 +6,13 @@ import ClaudeRecipe from "./ClaudeRecipe";
 export default function Main() {
     const [ingredients, setIngredients] = React.useState([]);
     const [recipe, setRecipe] = React.useState(null);
+    const recipeSection = React.useRef(null);
+    
+    React.useEffect(() => {
+        recipe.length > 0 &&
+        recipeSection.current !== null &&
+        recipeSection.current.scrollIntoView({behavior: "smooth"})
+    }, [recipe]);
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient");      
@@ -34,6 +41,7 @@ export default function Main() {
         <main>
             <Form handleAction={addIngredient} />
             {ingredients.length > 0 && <IngredientsList
+            ref={recipeSection}
             ingredients={ingredients}
             displayRecipe={displayRecipe}
             />}
