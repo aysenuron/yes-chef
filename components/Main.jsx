@@ -41,7 +41,11 @@ export default function Main() {
 
     return (
         <main>
-            {recipe && <Confetti confettiSource={{x: 0, y: 150, w: window.width, h:0}} numberOfPieces={1000} recycle={false} />}
+            {recipe && <Confetti 
+            confettiSource={{x: 0, y: 150, w: window.innerWidthwidth, h:0}}
+            numberOfPieces={1000} 
+            recycle={false} 
+            />}
             <Form handleAction={addIngredient} />
             {ingredients.length > 0 && <IngredientsList
             ref={recipeSection}
